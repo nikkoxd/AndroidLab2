@@ -14,6 +14,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -45,28 +48,21 @@ class MainActivity : ComponentActivity() {
             )
 
             Lab2Theme {
-                Surface(
-                    modifier = Modifier.fillMaxSize()
-                ) {
+                Scaffold { innerPadding ->
                     Column(
-                        verticalArrangement = Arrangement.SpaceBetween,
+                        verticalArrangement = Arrangement.SpaceAround,
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.padding(
-                            horizontal = 24.dp,
-                            vertical = 24.dp
-                        )
+                        modifier = Modifier.background(MaterialTheme.colorScheme.background).padding(innerPadding).fillMaxSize()
                     ) {
                         Artwork(
                             photo = artworks[currentArtwork].artwork,
-                            description = null
+                            description = null,
+                            modifier = Modifier.padding(horizontal = 24.dp)
                         )
                         ArtworkDescription(
                             title = artworks[currentArtwork].title,
                             artist = artworks[currentArtwork].artist,
                             year = artworks[currentArtwork].year,
-                            modifier = Modifier
-                                .background(Color(0xFFECEBF4))
-                                .padding(16.dp)
                         )
                         DisplayController(
                             displayPrevious = {
@@ -96,6 +92,7 @@ class ArtworkData(var artwork: Painter, var title: String, var artist: String, v
 fun Artwork(photo: Painter, description: String?, modifier: Modifier = Modifier) {
     Surface(
         shadowElevation = 16.dp,
+        color = Color.White,
         modifier = modifier
     ) {
         Image(
@@ -111,6 +108,8 @@ fun ArtworkDescription(title: String, artist: String, year: String, modifier: Mo
     Column(
         horizontalAlignment = Alignment.Start,
         modifier = modifier
+            .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+            .padding(16.dp)
     ) {
         Text(
             text = title,
@@ -139,12 +138,14 @@ fun DisplayController(displayPrevious: () -> Unit, displayNext: () -> Unit, modi
     ) {
         Button(
             onClick = { displayPrevious() },
+            colors = ButtonDefaults.buttonColors(),
             modifier = Modifier.width(128.dp)
         ) {
            Text(stringResource(R.string.previous))
         }
         Button(
             onClick = { displayNext() },
+            colors = ButtonDefaults.buttonColors(),
             modifier = Modifier.width(128.dp)
         ) {
             Text(stringResource(R.string.next))
@@ -162,37 +163,30 @@ fun ArtSpacePreview() {
     )
 
     Lab2Theme {
-        Surface(
-            modifier = Modifier.fillMaxSize()
-        ) {
+        Scaffold { innerPadding ->
             Column(
-                verticalArrangement = Arrangement.SpaceBetween,
+                verticalArrangement = Arrangement.SpaceAround,
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(
-                    horizontal = 24.dp,
-                    vertical = 24.dp
-                )
+                modifier = Modifier.background(MaterialTheme.colorScheme.background).padding(innerPadding).fillMaxSize()
             ) {
                 Artwork(
                     photo = artworks[currentArtwork].artwork,
-                    description = null
+                    description = null,
+                    modifier = Modifier.padding(horizontal = 24.dp)
                 )
                 ArtworkDescription(
                     title = artworks[currentArtwork].title,
                     artist = artworks[currentArtwork].artist,
                     year = artworks[currentArtwork].year,
-                    modifier = Modifier
-                        .background(Color(0xFFECEBF4))
-                        .padding(16.dp)
                 )
                 DisplayController(
                     displayPrevious = {
-                        if (currentArtwork >= 1) {
+                        if (currentArtwork > 0) {
                             currentArtwork--
                         }
                     },
                     displayNext = {
-                        if (currentArtwork <= 3) {
+                        if (currentArtwork < 1) {
                             currentArtwork++
                         }
                     },
