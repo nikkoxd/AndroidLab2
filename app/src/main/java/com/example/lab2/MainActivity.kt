@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -50,14 +51,14 @@ class MainActivity : ComponentActivity() {
             Lab2Theme {
                 Scaffold { innerPadding ->
                     Column(
-                        verticalArrangement = Arrangement.SpaceAround,
+                        verticalArrangement = Arrangement.SpaceBetween,
                         horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier.background(MaterialTheme.colorScheme.background).padding(innerPadding).fillMaxSize()
                     ) {
                         Artwork(
                             photo = artworks[currentArtwork].artwork,
                             description = null,
-                            modifier = Modifier.padding(horizontal = 24.dp)
+                            modifier = Modifier.padding(24.dp).weight(1f)
                         )
                         ArtworkDescription(
                             title = artworks[currentArtwork].title,
@@ -77,7 +78,7 @@ class MainActivity : ComponentActivity() {
                             },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = 24.dp)
+                                .padding(24.dp)
                         )
                     }
                 }
@@ -93,7 +94,7 @@ fun Artwork(photo: Painter, description: String?, modifier: Modifier = Modifier)
     Surface(
         shadowElevation = 16.dp,
         color = Color.White,
-        modifier = modifier
+        modifier = modifier.wrapContentSize()
     ) {
         Image(
             painter = photo,
@@ -165,14 +166,14 @@ fun ArtSpacePreview() {
     Lab2Theme {
         Scaffold { innerPadding ->
             Column(
-                verticalArrangement = Arrangement.SpaceAround,
+                verticalArrangement = Arrangement.SpaceBetween,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.background(MaterialTheme.colorScheme.background).padding(innerPadding).fillMaxSize()
             ) {
                 Artwork(
                     photo = artworks[currentArtwork].artwork,
                     description = null,
-                    modifier = Modifier.padding(horizontal = 24.dp)
+                    modifier = Modifier.padding(24.dp).weight(1f)
                 )
                 ArtworkDescription(
                     title = artworks[currentArtwork].title,
@@ -192,7 +193,7 @@ fun ArtSpacePreview() {
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 24.dp)
+                        .padding(24.dp)
                 )
             }
         }
