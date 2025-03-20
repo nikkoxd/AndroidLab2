@@ -23,7 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            var currentArtwork by remember { mutableIntStateOf(0) }
+            var currentArtwork by rememberSaveable { mutableIntStateOf(0) }
             val artworks = arrayOf(
                 ArtworkData(painterResource(R.drawable.photo_2), "Artwork 1", "Artist 1", "2025"),
                 ArtworkData(painterResource(R.drawable.photo_3), "Artwork 2", "Artist 2", "2024"),
@@ -157,7 +157,7 @@ fun DisplayController(displayPrevious: () -> Unit, displayNext: () -> Unit, modi
 @Preview(showBackground = true)
 @Composable
 fun ArtSpacePreview() {
-    var currentArtwork = 1
+    var currentArtwork by rememberSaveable { mutableIntStateOf(0) }
     val artworks: Array<ArtworkData> = arrayOf(
         ArtworkData(painterResource(R.drawable.photo_2), "Artwork 1", "Artist 1", "2025"),
         ArtworkData(painterResource(R.drawable.photo_3), "Artwork 2", "Artist 2", "2024"),
